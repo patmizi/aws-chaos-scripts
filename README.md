@@ -12,7 +12,10 @@ Use these scripts only if you understand what the code does
 
      ```shell
         ❯ script-fail-az --help
-        usage: fail_az.py [-h] --region REGION --vpc-id VPC_ID --az-name AZ_NAME [--duration DURATION] [--limit-asg LIMIT_ASG] [--failover-rds FAILOVER_RDS] [--failover-elasticache FAILOVER_ELASTICACHE] [--log-level LOG_LEVEL] [--profile PROFILE]
+        usage: fail_az.py [-h] --region REGION --vpc-id VPC_ID --az-name AZ_NAME 
+            [--duration DURATION] [--limit-asg LIMIT_ASG] 
+            [--failover-rds FAILOVER_RDS] [--failover-elasticache FAILOVER_ELASTICACHE] 
+            [--log-level LOG_LEVEL] [--profile PROFILE]
 
         Simulate AZ failure: associate subnet(s) with a Chaos NACL that deny ALL Ingress and Egress traffic - blackhole
         
@@ -38,7 +41,9 @@ Use these scripts only if you understand what the code does
 
     ```shell
         ❯ script-stop-instance --help
-        usage: stop_random_instance.py [-h] [--log-level LOG_LEVEL] [--region REGION] [--az-name AZ_NAME] [--tag-name TAG_NAME] [--tag-value TAG_VALUE] [--duration DURATION] [--profile PROFILE]
+        usage: stop_random_instance.py [-h] [--log-level LOG_LEVEL] [--region REGION] 
+            [--az-name AZ_NAME] [--tag-name TAG_NAME] [--tag-value TAG_VALUE] 
+            [--duration DURATION] [--profile PROFILE]
         
         Script to randomly stop instance in AZ filtered by tag
         
@@ -60,7 +65,8 @@ Use these scripts only if you understand what the code does
 
     ```shell
         ❯ script-fail-rds --help
-        usage: fail_rds.py [-h] --region REGION [--rds-id RDS_ID] [--vpc-id VPC_ID] [--az-name AZ_NAME] [--log-level LOG_LEVEL] [--profile PROFILE]
+        usage: fail_rds.py [-h] --region REGION [--rds-id RDS_ID] [--vpc-id VPC_ID] 
+            [--az-name AZ_NAME] [--log-level LOG_LEVEL] [--profile PROFILE]
         
         Force RDS failover if master is in a particular AZ or if database ID provided
         
@@ -80,7 +86,8 @@ Use these scripts only if you understand what the code does
 
     ```shell
         ❯ script-fail-elasticache --help
-        usage: fail_elasticache.py [-h] --region REGION [--elasticache-cluster-name ELASTICACHE_CLUSTER_NAME] [--vpc-id VPC_ID] [--az-name AZ_NAME] [--log-level LOG_LEVEL] [--profile PROFILE]
+        usage: fail_elasticache.py [-h] --region REGION [--elasticache-cluster-name ELASTICACHE_CLUSTER_NAME] 
+            [--vpc-id VPC_ID] [--az-name AZ_NAME] [--log-level LOG_LEVEL] [--profile PROFILE]
         
         Force ElastiCache failover if master is in a particular AZ or if master node ID provided
         
