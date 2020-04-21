@@ -12,13 +12,13 @@ Use these scripts only if you understand what the code does
 
      ```shell
         ❯ script-fail-az --help
-        usage: fail_az.py [-h] --region REGION --vpc-id VPC_ID --az-name AZ_NAME 
-            [--duration DURATION] [--limit-asg LIMIT_ASG] 
-            [--failover-rds FAILOVER_RDS] [--failover-elasticache FAILOVER_ELASTICACHE] 
+        usage: fail_az.py [-h] --region REGION --vpc-id VPC_ID --az-name AZ_NAME
+            [--duration DURATION] [--limit-asg LIMIT_ASG]
+            [--failover-rds FAILOVER_RDS] [--failover-elasticache FAILOVER_ELASTICACHE]
             [--log-level LOG_LEVEL] [--profile PROFILE]
 
         Simulate AZ failure: associate subnet(s) with a Chaos NACL that deny ALL Ingress and Egress traffic - blackhole
-        
+
         optional arguments:
           -h, --help            show this help message and exit
           --region REGION       The AWS region of choice (default: None)
@@ -41,12 +41,12 @@ Use these scripts only if you understand what the code does
 
     ```shell
         ❯ script-stop-instance --help
-        usage: stop_random_instance.py [-h] [--log-level LOG_LEVEL] [--region REGION] 
-            [--az-name AZ_NAME] [--tag-name TAG_NAME] [--tag-value TAG_VALUE] 
+        usage: stop_random_instance.py [-h] [--log-level LOG_LEVEL] [--region REGION]
+            [--az-name AZ_NAME] [--tag-name TAG_NAME] [--tag-value TAG_VALUE]
             [--duration DURATION] [--profile PROFILE]
-        
+
         Script to randomly stop instance in AZ filtered by tag
-        
+
         optional arguments:
           -h, --help            show this help message and exit
           --log-level LOG_LEVEL
@@ -65,11 +65,11 @@ Use these scripts only if you understand what the code does
 
     ```shell
         ❯ script-fail-rds --help
-        usage: fail_rds.py [-h] --region REGION [--rds-id RDS_ID] [--vpc-id VPC_ID] 
+        usage: fail_rds.py [-h] --region REGION [--rds-id RDS_ID] [--vpc-id VPC_ID]
             [--az-name AZ_NAME] [--log-level LOG_LEVEL] [--profile PROFILE]
-        
+
         Force RDS failover if master is in a particular AZ or if database ID provided
-        
+
         optional arguments:
           -h, --help            show this help message and exit
           --region REGION       The AWS region of choice. (default: None)
@@ -86,11 +86,11 @@ Use these scripts only if you understand what the code does
 
     ```shell
         ❯ script-fail-elasticache --help
-        usage: fail_elasticache.py [-h] --region REGION [--elasticache-cluster-name ELASTICACHE_CLUSTER_NAME] 
+        usage: fail_elasticache.py [-h] --region REGION [--elasticache-cluster-name ELASTICACHE_CLUSTER_NAME]
             [--vpc-id VPC_ID] [--az-name AZ_NAME] [--log-level LOG_LEVEL] [--profile PROFILE]
-        
+
         Force ElastiCache failover if master is in a particular AZ or if master node ID provided
-        
+
         optional arguments:
           -h, --help            show this help message and exit
           --region REGION       The AWS region of choice. (default: None)
@@ -135,7 +135,7 @@ You have two options. Choose _**one**_ of the options below
 1. Run the script with its console script:
 
    ```shell
-   script-fail-az --region eu-west-3 --vpc-id vpc-2719dc4e --az-name eu-west-3a --duration 60 --limit-asg True --failover-rds True --failover-elasticache True
+   script-fail-az --region eu-west-3 --vpc-id vpc-2719dc4e --az-name eu-west-3a  --limit-asg True --failover-rds True --failover-elasticache True --profile prda
    script-stop-instance --region eu-west-3 --az-name eu-west-3a --tag-name "chaos" --tag-value "chaos-ready"
    script-fail-rds --region eu-west-3 --rds-id database-1
    script-fail-rds --region eu-west-3 --vpc-id vpc-2719dc4e --az-name eu-west-3c
