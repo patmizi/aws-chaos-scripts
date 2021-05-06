@@ -95,11 +95,7 @@ def rollback(ec2_client, instance_id):
     )
 
 
-<<<<<<< HEAD
-def run(region, az_name, tag_name, tag_value, duration, log_level='INFO', profile='default'):
-=======
-def run(region, az_name, tag, duration, log_level='INFO'):
->>>>>>> upstream/master
+def run(region, az_name, tag, duration, log_level='INFO', profile='default'):
     setup_logging(log_level)
     logger = logging.getLogger(__name__)
     logger.info('Setting up ec2 client for region %s ', region)
