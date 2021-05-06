@@ -3,6 +3,9 @@
 .DS_Store
 .vscode
 .idea
+.chaosiq
+journal.json
+*.log
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

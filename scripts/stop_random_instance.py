@@ -1,6 +1,7 @@
 """
 Script to randomly stop an instance within a particular VPC
 If the instance has the proper tags
+Restarts the instances after specific duration
 """
 import argparse
 import logging
@@ -28,14 +29,12 @@ def get_arguments():
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument('--log-level', type=str, default='INFO',
                         help='Python log level. INFO, DEBUG, etc.')
-    parser.add_argument('--region', type=str, default='eu-west-3',
+    parser.add_argument('--region', type=str, required=True,
                         help='The AWS region of choice')
     parser.add_argument('--az-name', type=str, default='eu-west-3a',
                         help='The name of the availability zone to blackout')
-    parser.add_argument('--tag-name', type=str, default='SSMTag',
-                        help='The name of the tag')
-    parser.add_argument('--tag-value', type=str, default='chaos-ready',
-                        help='The value of the tag')
+    parser.add_argument('--tag', type=str, default='SSMTag:chaos-ready',
+                        help='Filter instances by tag name:value')
     parser.add_argument('--duration', type=int,
                         help='Duration, in seconds, before restarting the instance')
     parser.add_argument('--profile', type=str, default='default',
@@ -44,7 +43,7 @@ def get_arguments():
     return parser.parse_args()
 
 
-def stop_random_instance(ec2_client, az_name, tag_name, tag_value):
+def stop_random_instance(ec2_client, az_name, tag):
     logger = logging.getLogger(__name__)
     paginator = ec2_client.get_paginator('describe_instances')
     pages = paginator.paginate(
@@ -56,9 +55,9 @@ def stop_random_instance(ec2_client, az_name, tag_name, tag_value):
                 ]
             },
             {
-                "Name": "tag:" + tag_name,
+                "Name": "tag:" + tag.split(':')[0],
                 "Values": [
-                    tag_value
+                    tag.split(':')[1]
                 ]
             },
             {
@@ -84,8 +83,8 @@ def stop_random_instance(ec2_client, az_name, tag_name, tag_value):
         return selected_instance
     else:
         logger.info(
-            "No instance in running state in %s with tag %s=%s",
-            az_name, tag_name, tag_value)
+            "No instance in running state in %s with tag %s",
+            az_name, tag)
 
 
 def rollback(ec2_client, instance_id):
@@ -96,14 +95,18 @@ def rollback(ec2_client, instance_id):
     )
 
 
+<<<<<<< HEAD
 def run(region, az_name, tag_name, tag_value, duration, log_level='INFO', profile='default'):
+=======
+def run(region, az_name, tag, duration, log_level='INFO'):
+>>>>>>> upstream/master
     setup_logging(log_level)
     logger = logging.getLogger(__name__)
     logger.info('Setting up ec2 client for region %s ', region)
     session = boto3.Session(profile_name=profile)
     ec2_client = session.client('ec2', region_name=region)
     instance_id = stop_random_instance(
-        ec2_client, az_name, tag_name, tag_value)
+        ec2_client, az_name, tag)
 
     if instance_id and duration:
         time.sleep(duration)
@@ -117,8 +120,7 @@ def entry_point():
     run(
         args.region,
         args.az_name,
-        args.tag_name,
-        args.tag_value,
+        args.tag,
         args.duration,
         args.log_level,
         args.profile
